@@ -24,10 +24,24 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      
+      # Execute the given command using shell
+      - name: Build Project 
+        run: sudo ./build.sh
+        
+      # Execute action defined in the current repository
+      - name: Local Action 3
+        uses: ../path/to/action@v2
+        with:
+          apikey: ${{secrets.API_KEY}}
+          
+      # Perform static analysis of all source files
+      # in the repository using an action from
+      # its public GitHub URL.
+      - uses: microsoft/devskim-action@45bc8e9 4
+        with:
+          directory-to-scan: .
+          output-directory: scanneroutput
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
